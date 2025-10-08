@@ -45,7 +45,9 @@ priority: critical
 
 ## 🎯 Goal
 Provide a single `AuthService` responsible for:
-- Logging in via API (`/api/auth/login`)
+- import apiUrl from environment 
+- Logging in via API (`${apiUrl}/users/token`)
+- refresh token via API (`${apiUrl}/users/token/refresh`)
 - Persisting JWT or session token
 - Tracking current user & role (`Admin`, `Client`, `Customer`)
 - Logging out (clears token & redirects)
@@ -62,16 +64,18 @@ src/app/core/models/auth.model.ts
 
 ### `auth.model.ts`
 ```ts
-export interface IUser {
-  id: string;
-  name: string;
-  email: string;
-  role: 'Admin' | 'Client' | 'Customer';
+export interface loginCredentials {
+  password: string;
+  username: string;
 }
 
-export interface IAuthResponse {
-  token: string;
-  user: IUser;
+export interface refreshBody{
+  refresh: string;
+}
+
+export interface AuthResponse {
+  access: string;
+  refresh: string;
 }
 ````
 
@@ -81,26 +85,19 @@ export interface IAuthResponse {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private http = inject(HttpClient);
-  private _currentUser = new BehaviorSubject<IUser | null>(null);
+  private _currentUser = new BehaviorSubject<AuthResponse | null>(null);
   readonly currentUser$ = this._currentUser.asObservable();
 
-  login(credentials: { email: string; password: string }): Observable<IUser> {
-    return this.http.post<IAuthResponse>('/api/auth/login', credentials).pipe(
-      tap(res => {
-        localStorage.setItem('auth_token', res.token);
-        this._currentUser.next(res.user);
-      }),
-      map(res => res.user)
-    );
+  login(credentials: loginCredentials): Observable<AuthResponse> {
+  }
+
+  refreshToken(ref): Observable<{access:string}> {
   }
 
   logout(): void {
-    localStorage.removeItem('auth_token');
-    this._currentUser.next(null);
   }
 
   getToken(): string | null {
-    return localStorage.getItem('auth_token');
   }
 }
 ```
@@ -136,12 +133,14 @@ Implement a login page where users authenticate using email and password.
 ## 🧱 Component
 ````
 
-src/app/features/auth/pages/login.page.ts
+src/app/features/auth/pages/login.component.ts
+src/app/features/auth/pages/login.component.html
+src/app/features/auth/pages/login.component.css
 
 ```
 
 ### Behavior
-- Reactive form: `email`, `password`.
+- Reactive form: `username`, `password`.
 - On submit → calls `AuthService.login()`.
 - On success → redirect based on role:
   - Admin → `/admin/dashboard`
@@ -277,11 +276,4 @@ export const routes: Routes = [
 | **00-B** | Login page UI & role-based redirect |
 | **00-C** | Guards & interceptor for token handling |
 | **00-D** | Role-based routing configuration |
-
-After completing **Task 00**, you can safely move to:
-➡️ **Task 01-A: Admin Dashboard Page**
-
 ---
-
-Would you like me to include **Customer PIN login (voucher-based authentication)** in a separate later group (e.g. “Task 06 – Customer Access”) — or integrate its skeleton now under the same auth system?
-```

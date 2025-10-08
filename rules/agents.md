@@ -12,7 +12,7 @@
 * Code must be **clean, DRY, maintainable, and accessible**.
 * Prefer **simplicity and consistency** over cleverness.
 * If a solution breaks a rule, **propose a compliant alternative**.
-* Always generate **production-grade TypeScript + HTML + SCSS**.
+* Always generate **production-grade TypeScript + HTML + CSS**.
 
 ---
 
@@ -69,7 +69,7 @@ Example:
   standalone: true,
   imports: [CommonModule, UserCardComponent],
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss'],
+  styleUrls: ['./user-profile.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserProfileComponent { ... }
@@ -116,17 +116,10 @@ export class UserProfileComponent { ... }
 
 ---
 
-## 8. CSS / SCSS
+## 8. CSS
 
 * Component-scoped styles only.
-* Use SCSS + BEM convention:
-
-  ```scss
-  .card {
-    &__title { font-size: 1.25rem; }
-    &--highlighted { border-color: gold; }
-  }
-  ```
+* Use CSS + BEM convention:
 * Use variables for colors, spacing, and typography.
 * Prefer `rem` units.
 * Avoid `!important`.

@@ -105,7 +105,7 @@ Example:
   standalone: true,
   imports: [CommonModule, UserCardComponent],
   templateUrl: './user-profile.component.html',
-  styleUrls: ['./user-profile.component.scss'],
+  styleUrls: ['./user-profile.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserProfileComponent { ... }
@@ -399,26 +399,12 @@ export const routes: Routes = [
 ## 6. CSS Best Practices
 
 *   **Component-Scoped Styles**: Use Angular's component-scoped styles (via `styleUrls` or `styles` in `@Component`) to encapsulate styles and prevent global style conflicts.
-*   **SCSS/Sass**: Prefer SCSS for its features like variables, nesting, mixins, and functions, which improve maintainability and organization.
 *   **BEM (Block Element Modifier)**: Consider using BEM methodology for naming CSS classes to create modular and reusable styles.
     *   `block-name`
     *   `block-name__element-name`
     *   `block-name--modifier-name`
 
-    ```scss
-    /* Example BEM */
-    .card {
-      padding: 1rem;
-      &__title {
-        font-size: 1.5rem;
-      }
-      &--highlighted {
-        border: 2px solid gold;
-      }
-    }
-    ```
-
-*   **Variables**: Use SCSS variables (or CSS custom properties) for colors, fonts, spacing, etc., to ensure consistency and easy updates.
+*   **Variables**: Use CSS custom properties for colors, fonts, spacing, etc., to ensure consistency and easy updates.
 *   **Units**: Use `rem` or `em` for font sizes and spacing for better scalability and accessibility, reserving `px` for borders or specific fixed sizes.
 *   **Media Queries**: Implement responsive design using media queries.
 *   **Avoid `!important`**: Only use `!important` as a last resort in very specific override scenarios.
@@ -454,7 +440,7 @@ export const routes: Routes = [
     @Component({
       selector: 'app-my-component',
       templateUrl: './my-component.component.html',
-      styleUrls: ['./my-component.component.scss'],
+      styleUrls: ['./my-component.component.css'],
       standalone: true,
       imports: [],
       changeDetection: ChangeDetectionStrategy.OnPush // Apply OnPush strategy
