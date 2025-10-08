@@ -1,3 +1,8 @@
+---
+applyTo: ''
+---
+Provide project context and coding guidelines that AI should follow when generating code, answering questions, or reviewing changes.
+
 ## 🔐 Task 00 - Install tailwind CSS in the app
 
 based on https://angular.dev/guide/tailwind follow the steps to add tailwind to the app:

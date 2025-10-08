@@ -1,7 +1,8 @@
 ---
-globs: *.component.ts,*.guard.ts,*.pipe.ts,*.directive.ts
-alwaysApply: false
+applyTo: '**/*.ts'
 ---
+Provide project context and coding guidelines that AI should follow when generating code, answering questions, or reviewing changes.
+
 # TypeScript Best Practices
 
 ## Type Safety & Configuration
@@ -26,6 +27,8 @@ alwaysApply: false
 - Use `readonly` modifiers for immutable properties and arrays
 - Leverage TypeScript's utility types (`Partial`, `Required`, `Pick`, `Omit`, `Record`, etc.)
 - Use discriminated unions with exhaustiveness checking for type narrowing
+- Prefer interfaces for public APIs and types for internal structures
+- Use type aliases for complex types and unions
 
 ## Advanced Patterns
 
