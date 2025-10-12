@@ -1,3 +1,187 @@
-h1 {
-  color: green;
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  /* Updated gradient colors */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-container {
+  background: linear-gradient(135deg, #4c51bf 0%, #6b46c1 100%); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Ensure full viewport height */
+  width: 100%;
+  padding: 1rem;
+}
+
+.login-card {
+  background: rgba(255, 255, 255, 0.9); /* Slight transparency for background */
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 3rem;
+  max-width: 640px;
+  width: 100%;
+  animation: slide-up 0.5s ease-out;
+  box-sizing: border-box;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.header .logo {
+  width: 64px;
+  height: 64px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 16px;
+  margin: 0 auto 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  svg{
+    width: 40px;
+    height: 40px;
+    color: white;
+  }
+}
+
+.header h1 {
+  font-size: 1.875rem;
+  font-weight: 800;
+  color: #1a1a2e;
+  margin: 0;
+}
+
+.header p {
+  color: gray;
+  margin: 0.5rem 0 0;
+}
+
+.pin-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.pin-group {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.pin-input {
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  border: 2px solid #d7d7d7;
+  border-radius: 8px;
+}
+
+.pin-input:focus {
+  border-color: #805ad5;
+  box-shadow: 0 0 0 3px rgba(114, 78, 243, 0.5);
+  transform: scale(1.05);
+  outline: none;
+}
+
+.pin-input.error {
+  border-color: #ef4444;
+  animation: shake 0.3s;
+}
+
+.pin-separator {
+  font-size: 1.5rem;
+  color: #9ca3af;
+  align-self: center;
+}
+
+.submit-btn {
+  width: 100%;
+  padding: 0.875rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.submit-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.submit-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.spinner {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid white;
+  border-top: 2px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.footer {
+  text-align: center;
+  margin-top: 1.5rem;
+  border-top: 1px solid #d7d7d7;
+  padding-top: 1rem;
+}
+
+.footer a {
+  color:  #667eea;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
 }
