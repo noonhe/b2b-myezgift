@@ -23,10 +23,14 @@ src/app/core/models/profile.model.ts
 
 ### `profile.model.ts`
 ```ts
+export enum UserRole {
+  INTERNAL = 'internal',
+  COMPANY = 'company'
+}
 export interface AdminProfile {
   user: {
     username: string,
-    role: string,
+    role: UserRole,
     email: string,
     first_name: string,
     last_name: string,
@@ -42,6 +46,8 @@ export interface AdminProfile {
   }
 }
 ```
+
+
 
 ### `profile.service.ts`
 
