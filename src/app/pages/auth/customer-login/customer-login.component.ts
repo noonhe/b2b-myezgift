@@ -3,6 +3,9 @@ import { FormBuilder, FormGroup, Validators, FormControl, FormArray } from '@ang
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
+import { CustomerAuthService } from '../../../core/services/customer-auth.service';
+import { CustomerAuthResponse } from '../../../core/models/auth.model';
+import { take } from 'rxjs';
 
 @Component({
   selector: 'app-customer-login',
@@ -14,6 +17,7 @@ import { RouterModule } from '@angular/router';
 })
 export class CustomerLoginComponent {
   private fb = inject(FormBuilder);
+  private customerAuthService = inject(CustomerAuthService);
   @ViewChildren('pinInput') pinInputs!: QueryList<ElementRef>;
 
   pinForm: FormGroup = this.fb.group({
@@ -48,19 +52,30 @@ export class CustomerLoginComponent {
   }
 
   onSubmit(): void {
-    if (this.pinForm.invalid) {
-      this.pinForm.markAllAsTouched();
-      this.errorMessage = 'Please enter all 16 characters of your PIN';
+    const pin = this.pinForm.value.pin.join('');
+
+    if (!/^[0-9]{16}$/.test(pin)) {
+      this.errorMessage = 'Invalid PIN. Please enter a 16-digit numeric PIN.';
       return;
     }
 
     this.isLoading = true;
     this.errorMessage = null;
 
-    // Simulate authentication process
-    setTimeout(() => {
-      this.isLoading = false;
-      console.log('PIN submitted:', this.pinForm.value.pin.join(''));
-    }, 2000);
+    this.customerAuthService.login({ pin })
+      .pipe(take(1))
+      .subscribe({
+        next: (response: CustomerAuthResponse) => {
+          localStorage.setItem('accessToken', response.access);
+          localStorage.setItem('expiresIn', response.expires_in.toString());
+          this.isLoading = false;
+          console.log('Login successful');
+        },
+        error: (err: unknown) => {
+          this.isLoading = false;
+          this.errorMessage = 'Login failed. Please try again.';
+          console.error(err);
+        }
+      });
   }
 }
