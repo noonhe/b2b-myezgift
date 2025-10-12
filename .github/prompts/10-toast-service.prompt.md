@@ -29,7 +29,7 @@ export interface ToastOptions extends MatSnackBarConfig {
 
 **Implement Global Error Handling**
 Requirements:
-1. Create a new service named `ErrorHandlerInterceptor` in the `src/app/core/interceptors` directory.
+1. Create a new interceptor function named `errorHandlerInterceptor` in the `src/app/core/interceptors` directory.
 2. Implement a method to handle errors globally.
 3. Use the `ToastService` to display error messages when an error occurs.
 
@@ -68,18 +68,14 @@ export class ToastService {
 ```typescript
 import { Injectable } from '@angular/core';
 import { ToastService } from './toast.service';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { HttpHandlerFn, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
-@Injectable({
-  providedIn: 'root'
-})
-export class ErrorHandlerInterceptor implements HttpInterceptor {
-  constructor(private toastService: ToastService) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    return next.handle(req).pipe(
+export function errorHandlerInterceptor(req: HttpRequest<any>, next: HttpHandlerFn) {
+    const toast = inject(ToastService);
+    return next(req).pipe(
       catchError((error) => {
         console.error('An error occurred:', error);
         this.toastService.showToast({
@@ -94,23 +90,21 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
       })
     );
   }
-}
 ```
 
-provide the `ErrorHandlerInterceptor` in `src/app/app.config.ts`:
+provide the `errorHandlerInterceptor` in `src/app/app.config.ts`:
 
 ```typescript
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { ErrorHandlerInterceptor } from './core/services/error-handler.interceptor';
+import { errorHandlerInterceptor } from './core/services/error-handler.interceptor';
 ...
 export const appConfig: ApplicationConfig = {
   providers: [
     ...
     provideHttpClient(
-    withInterceptors([ErrorHandlerInterceptor]),
+    withInterceptors([errorHandlerInterceptor]),
   )
     ...
   ]
 };
 ```
-  

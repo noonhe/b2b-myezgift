@@ -24,8 +24,9 @@ UI Design:
    - for mobile view the sidebar should be collapsible and accessible via a hamburger menu in top left corner of the header.
    - The dashboard has a header for the logo, title and user avatar and the sidebar toggle(mobile view only).
    - the main content should be responsive, adjusting to the available screen space.
-   - `<router-outlet></router-outlet>` should be used in the main content area to load different components based on the route.
+   - `<router-outlet></router-outlet>` should be used in the main content area to load different components based on the routes picked from the sidebar.
    - The main content area should display the selected section based on the sidebar navigation.
+
 
 Success Criteria:
 - The dashboard should load successfully without any errors.
