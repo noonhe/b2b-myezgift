@@ -1,1 +1,6 @@
 @import "tailwindcss";
+@import './styles/_colors.css';
+@import './styles/_typography.css';
+@import './styles/_spacing.css';
+@import './styles/_borders.css';
+@import './styles/_shadows.css';

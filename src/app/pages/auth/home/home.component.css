@@ -4,6 +4,16 @@
   box-sizing: border-box;
 }
 
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: var(--color-background);
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .app-container {
   min-height: 100vh;
   background: linear-gradient(135deg, #f5f7fa 0%, #e9ecef 100%);
@@ -527,4 +537,14 @@
   .cta-content h2 {
     font-size: 2rem;
   }
+}
+
+.home-card {
+  background: white;
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-large);
+  padding: var(--spacing-xlarge);
+  max-width: 640px;
+  width: 100%;
+  animation: slide-up 0.5s ease-out;
 }

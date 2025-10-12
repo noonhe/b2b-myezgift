@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--color-secondary);
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -20,10 +20,10 @@ body {
 
 .login-card {
   background: white;
-  border-radius: 16px;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-  padding: 2rem;
-  max-width: 440px;
+  border-radius: var(--border-radius-large);
+  box-shadow: var(--shadow-large);
+  padding: var(--spacing-xlarge);
+  max-width: 640px;
   width: 100%;
   animation: slide-up 0.5s ease-out;
 }
